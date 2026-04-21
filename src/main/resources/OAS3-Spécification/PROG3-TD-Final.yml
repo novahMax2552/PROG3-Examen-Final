@@ -1,0 +1,247 @@
+openapi: 3.0.3
+info:
+  title: Fédération de Collectivités Agricoles API
+  version: 1.1.0
+  description: API REST Spring Boot pour gérer les collectivités agricoles et la fédération nationale.
+
+servers:
+  - url: http://localhost:8080/api/v1
+
+paths:
+  /collectivites:
+    post:
+      summary: Ouverture d’une nouvelle collectivité
+      description: Crée une nouvelle collectivité si les conditions sont remplies.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Collectivite'
+      responses:
+        '201':
+          description: Collectivité créée avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collectivite'
+
+  /membres:
+    post:
+      summary: Admission d’un nouveau membre
+      description: Ajoute un membre dans une collectivité existante avec conditions renforcées.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MembreAdmission'
+      responses:
+        '201':
+          description: Membre admis avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Membre'
+
+  /cotisations:
+    post:
+      summary: Enregistrement d’une cotisation
+      description: Permet au trésorier d’enregistrer une cotisation périodique ou ponctuelle.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cotisation'
+      responses:
+        '201':
+          description: Cotisation enregistrée
+
+  /comptes:
+    post:
+      summary: Création d’un compte de trésorerie
+      description: Ajoute un compte bancaire, mobile money ou caisse pour une collectivité.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Compte'
+      responses:
+        '201':
+          description: Compte créé
+
+  /activites:
+    post:
+      summary: Planification d’une activité
+      description: Crée une activité obligatoire ou exceptionnelle pour une collectivité ou la fédération.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Activite'
+      responses:
+        '201':
+          description: Activité planifiée
+
+  /assiduite:
+    post:
+      summary: Enregistrement de la présence
+      description: Le secrétaire enregistre la présence des membres lors d’une activité.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Presence'
+      responses:
+        '201':
+          description: Présence enregistrée
+
+  /statistiques/{collectiviteId}:
+    get:
+      summary: Statistiques d’une collectivité
+      description: Retourne les statistiques globales et détaillées d’une collectivité.
+      parameters:
+        - name: collectiviteId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Statistiques de la collectivité
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statistiques'
+
+  /statistiques/federation:
+    get:
+      summary: Statistiques globales de la fédération
+      description: Retourne les statistiques agrégées de toutes les collectivités.
+      parameters:
+        - name: periode
+          in: query
+          required: false
+          schema:
+            type: string
+            example: "2026-01"
+      responses:
+        '200':
+          description: Statistiques globales de la fédération
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatistiquesFederation'
+
+components:
+  schemas:
+    Collectivite:
+      type: object
+      properties:
+        id: { type: string }
+        nom: { type: string }
+        ville: { type: string }
+        specialite: { type: string }
+        dateCreation: { type: string, format: date }
+        membres:
+          type: array
+          items: { $ref: '#/components/schemas/Membre' }
+
+    Membre:
+      type: object
+      properties:
+        id: { type: string }
+        nom: { type: string }
+        prenom: { type: string }
+        dateNaissance: { type: string, format: date }
+        genre: { type: string, enum: [masculin, feminin] }
+        adresse: { type: string }
+        metier: { type: string }
+        telephone: { type: string }
+        email: { type: string, format: email }
+        dateAdhesion: { type: string, format: date }
+        poste: { type: string, enum: [president, presidentAdjoint, tresorier, secretaire, membreConfirme, membreJunior] }
+
+    MembreAdmission:
+      type: object
+      properties:
+        informationsPersonnelles: { $ref: '#/components/schemas/Membre' }
+        parrains:
+          type: array
+          items:
+            type: object
+            properties:
+              membreId: { type: string }
+              collectiviteId: { type: string }
+              relation: { type: string, enum: [famille, ami, collegue, autre] }
+        fraisAdhesion: { type: number, example: 50000 }
+        cotisationAnnuelle: { type: number, example: 200000 }
+
+    Cotisation:
+      type: object
+      properties:
+        id: { type: string }
+        membreId: { type: string }
+        montant: { type: number }
+        date: { type: string, format: date }
+        modePaiement: { type: string, enum: [espece, virement, mobileMoney] }
+
+    Compte:
+      type: object
+      properties:
+        id: { type: string }
+        type: { type: string, enum: [caisse, bancaire, mobileMoney] }
+        titulaire: { type: string }
+        solde: { type: number }
+        devise: { type: string, default: MGA }
+
+    Activite:
+      type: object
+      properties:
+        id: { type: string }
+        type: { type: string, enum: [assembleeGenerale, formationJunior, exceptionnelle] }
+        date: { type: string, format: date }
+        obligatoire: { type: boolean }
+
+    Presence:
+      type: object
+      properties:
+        id: { type: string }
+        activiteId: { type: string }
+        membreId: { type: string }
+        present: { type: boolean }
+        excuse: { type: boolean }
+
+    Statistiques:
+      type: object
+      properties:
+        collectiviteId: { type: string }
+        tauxAssiduite: { type: number }
+        nombreMembres: { type: integer }
+        detailsMembres:
+          type: array
+          items:
+            type: object
+            properties:
+              membreId: { type: string }
+              tauxAssiduite: { type: number }
+              montantEncaisse: { type: number }
+              montantImpaye: { type: number }
+
+    StatistiquesFederation:
+      type: object
+      properties:
+        periode: { type: string }
+        collectivites:
+          type: array
+          items:
+            type: object
+            properties:
+              collectiviteId: { type: string }
+              tauxAssiduiteGlobal: { type: number }
+              pourcentageCotisationAJour: { type: number }
+              nouveauxAdherents: { type: integer }
