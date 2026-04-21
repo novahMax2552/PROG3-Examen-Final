@@ -3,12 +3,19 @@ package org.prog3.prog3projetfinal.Dao;
 import org.prog3.prog3projetfinal.model.CreateMember;
 import org.prog3.prog3projetfinal.model.Member;
 import org.prog3.prog3projetfinal.model.enums.MemberOccupation;
+
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Date;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class MemberDao {
@@ -46,7 +53,9 @@ public class MemberDao {
         String sql = "INSERT INTO member (id, first_name, last_name, birth_date, gender, address, profession, phone_number, email, occupation, collectivity_id, date_adhesion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
+
             String id = UUID.randomUUID().toString();
+
             stmt.setObject(1, UUID.fromString(id));
             stmt.setString(2, cm.getFirstName());
             stmt.setString(3, cm.getLastName());
@@ -68,9 +77,9 @@ public class MemberDao {
             newMember.setOccupation(cm.getOccupation());
             newMember.setReferees(referees);
             return newMember;
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 }
-
