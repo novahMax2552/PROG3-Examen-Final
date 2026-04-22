@@ -1,4 +1,4 @@
-package org.prog3.prog3projetfinal.config;
+package org.prog3.prog3projetfinal.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

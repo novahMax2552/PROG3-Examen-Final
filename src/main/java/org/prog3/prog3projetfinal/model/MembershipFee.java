@@ -1,6 +1,8 @@
 package org.prog3.prog3projetfinal.model;
 
 import java.time.LocalDate;
+import org.prog3.prog3projetfinal.model.enums.ActivityStatus;
+import org.prog3.prog3projetfinal.model.enums.Frequency;
 
 public class MembershipFee {
     private String id;
@@ -10,7 +12,6 @@ public class MembershipFee {
     private String label;
     private ActivityStatus status;
 
-    // Getters & Setters
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 
@@ -29,3 +30,4 @@ public class MembershipFee {
     public ActivityStatus getStatus() { return status; }
     public void setStatus(ActivityStatus status) { this.status = status; }
 }
+

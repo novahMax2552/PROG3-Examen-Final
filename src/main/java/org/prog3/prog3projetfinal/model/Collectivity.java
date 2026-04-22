@@ -3,6 +3,7 @@ package org.prog3.prog3projetfinal.model;
 import java.util.List;
 
 public class Collectivity {
+
     private String id;
     private Integer number;
     private String name;
@@ -14,6 +15,7 @@ public class Collectivity {
         return id;
     }
     public void setId(String id) {
+
         this.id = id;
     }
 
@@ -21,6 +23,7 @@ public class Collectivity {
         return number;
     }
     public void setNumber(Integer number) {
+
         this.number = number;
     }
 
@@ -28,6 +31,7 @@ public class Collectivity {
         return name;
     }
     public void setName(String name) {
+
         this.name = name;
     }
 
@@ -35,6 +39,7 @@ public class Collectivity {
         return location;
     }
     public void setLocation(String location) {
+
         this.location = location;
     }
 

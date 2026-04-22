@@ -7,7 +7,8 @@ import org.prog3.prog3projetfinal.model.enums.MemberOccupation;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class MemberService {
@@ -21,17 +22,12 @@ public class MemberService {
         List<Member> created = new ArrayList<>();
 
         for (CreateMember m : members) {
-            // Payment check
             if (!m.isRegistrationFeePaid() || !m.isMembershipDuesPaid()) {
                 throw new IllegalArgumentException("Registration fee or membership dues not paid");
             }
-
-            // Referees check
             if (m.getReferees() == null || m.getReferees().size() < 2) {
                 throw new IllegalArgumentException("At least two referees required");
             }
-
-            // Load referees from DB
             List<Member> referees = dao.findMembersByIds(m.getReferees());
 
             long internalCount = referees.stream()
@@ -47,7 +43,7 @@ public class MemberService {
             Member newMember = dao.save(m, referees);
             created.add(newMember);
         }
+
         return created;
     }
 }
-

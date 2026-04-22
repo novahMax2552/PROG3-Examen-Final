@@ -1,6 +1,6 @@
 package org.prog3.prog3projetfinal.Dao;
 
-import org.prog3.prog3projetfinal.config.DBConnection;
+import org.prog3.prog3projetfinal.util.DBConnection;
 import org.prog3.prog3projetfinal.model.CreateMember;
 import org.prog3.prog3projetfinal.model.Member;
 import org.prog3.prog3projetfinal.model.enums.MemberOccupation;
