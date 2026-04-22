@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 public class DBConnection {
     private static final String URL = "jdbc:postgresql://localhost:5432/federation_agricultural";
-    private static final String USER = "postgres";       // ⚠️ Mets ton vrai user
-    private static final String PASSWORD = "Novah Anusha"; // ⚠️ Mets ton vrai mot de passe
+    private static final String USER = "postgres";
+    private static final String PASSWORD = "Novah Anusha";
 
     static {
         try {

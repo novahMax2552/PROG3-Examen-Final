@@ -6,7 +6,7 @@ import org.prog3.prog3projetfinal.model.enums.MemberOccupation;
 public class MemberInformation {
     private String firstName;
     private String lastName;
-    private String birthDate; // format: yyyy-MM-dd
+    private String birthDate;
     private Gender gender;
     private String address;
     private String profession;

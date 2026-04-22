@@ -7,12 +7,11 @@ import org.prog3.prog3projetfinal.model.enums.MemberOccupation;
 import org.prog3.prog3projetfinal.model.enums.Gender;
 
 public class Member extends MemberInformation {
-    private String id;                       // Unique identifier for the member
-    private List<Member> referees;           // List of referees (other members)
-    private String collectivityId;           // The collectivity the member belongs to
-    private LocalDate dateAdhesion;          // Date when the member joined
+    private String id;
+    private List<Member> referees;
+    private String collectivityId;
+    private LocalDate dateAdhesion;
 
-    // Getters & Setters
     public String getId() {
         return id;
     }
