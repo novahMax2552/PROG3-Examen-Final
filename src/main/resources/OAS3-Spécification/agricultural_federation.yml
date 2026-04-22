@@ -5,7 +5,8 @@ info:
     # Versioning
     This API uses semantic versioning (MAJOR.MINOR.PATCH). Available versions are : 
     - v0.0.1 (2026-04-21) : POST /collectivities for collectivities creation and POST /members for members creation.
-  version: 0.0.1
+    - v0.0.2 (2026-04-22) : PATCH /collectivities/{id}/identity for assigning number and name to collectivities.
+  version: 0.0.2
 servers:
   - url: 'https://localhost:8080'
 paths:
@@ -61,6 +62,36 @@ paths:
             - Membership dues not paid or registration fee not paid.
         404:
           description: Either collectivity or member not found.
+  '/collectivities/{id}/identity':
+    patch:
+      summary: Assign number and name to a collectivity
+      description: |
+        Federation assigns a unique number and name to a collectivity.
+        Once assigned, they cannot be modified.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Collectivity identifier
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssignCollectivityIdentity'
+      responses:
+        200:
+          description: Collectivity with assigned number and name
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collectivity'
+        400:
+          description: Number or name already exists, or attempt to modify existing identity
+        404:
+          description: Collectivity not found
 components:
   schemas:
     CreateCollectivity:
@@ -71,8 +102,7 @@ components:
         members:
           type: array
           items:
-            schema:
-              $ref: '#/components/schemas/MemberIdentifier'
+            $ref: '#/components/schemas/MemberIdentifier'
         federationApproval:
           type: boolean
         structure:
@@ -104,6 +134,10 @@ components:
       properties:
         id:
           type: string
+        number:
+          type: integer
+        name:
+          type: string
         location:
           type: string
         structure:
@@ -112,6 +146,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Member'
+    AssignCollectivityIdentity:
+      type: object
+      properties:
+        number:
+          type: integer
+        name:
+          type: string
+      required:
+        - number
+        - name
     MemberIdentifier:
       type: string
     CreateMember:
