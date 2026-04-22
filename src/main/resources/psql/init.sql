@@ -11,4 +11,11 @@ CREATE TABLE member (
                         occupation VARCHAR(50),
                         collectivity_id UUID,
                         date_adhesion DATE
-                    );
+);
+
+CREATE TABLE collectivity (
+                              id UUID PRIMARY KEY,
+                              number INT UNIQUE,
+                              name VARCHAR(255) UNIQUE,
+                              location VARCHAR(255)
+);

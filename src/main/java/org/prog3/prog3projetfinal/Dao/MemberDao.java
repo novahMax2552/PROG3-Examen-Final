@@ -1,12 +1,12 @@
 package org.prog3.prog3projetfinal.Dao;
 
+import org.prog3.prog3projetfinal.config.DBConnection;
 import org.prog3.prog3projetfinal.model.CreateMember;
 import org.prog3.prog3projetfinal.model.Member;
 import org.prog3.prog3projetfinal.model.enums.MemberOccupation;
 
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,16 +19,11 @@ import java.util.UUID;
 
 @Repository
 public class MemberDao {
-    private final DataSource dataSource;
-
-    public MemberDao(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
 
     public List<Member> findMembersByIds(List<String> ids) {
         List<Member> result = new ArrayList<>();
         String sql = "SELECT * FROM member WHERE id = ?";
-        try (Connection conn = dataSource.getConnection()) {
+        try (Connection conn = DBConnection.getConnection()) {
             for (String id : ids) {
                 try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                     stmt.setObject(1, UUID.fromString(id));
@@ -51,7 +46,7 @@ public class MemberDao {
 
     public Member save(CreateMember cm, List<Member> referees) {
         String sql = "INSERT INTO member (id, first_name, last_name, birth_date, gender, address, profession, phone_number, email, occupation, collectivity_id, date_adhesion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try (Connection conn = dataSource.getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             String id = UUID.randomUUID().toString();
