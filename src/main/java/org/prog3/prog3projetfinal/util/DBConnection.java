@@ -11,7 +11,6 @@ public class DBConnection {
 
     static {
         try {
-            // Charger le driver PostgreSQL
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("PostgreSQL Driver not found!", e);

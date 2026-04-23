@@ -25,9 +25,11 @@ public class BankAccount implements FinancialAccount {
 
 
     public void setHolderName(String holderName) {
+
         this.holderName = holderName;
     }
-    public void setBankName(Bank bankName) {
+    public void setBankName(Bank bankName)
+    {
         this.bankName = bankName;
     }
     public void setBankCode(int bankCode) {

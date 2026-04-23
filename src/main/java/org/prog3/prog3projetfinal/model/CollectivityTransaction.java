@@ -11,7 +11,6 @@ public class CollectivityTransaction {
     private FinancialAccount accountCredited;
     private Member memberDebited;
 
-    // Getters & Setters
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 

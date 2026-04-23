@@ -32,7 +32,7 @@ public class CreateCollectivity {
         this.federationApproval = federationApproval;
     }
 
-    public CreateCollectivityStructure getStructure() {
+    public CollectivityStructure getStructure() {
         return structure;
     }
 
