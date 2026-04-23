@@ -1,8 +1,12 @@
 package org.prog3.prog3projetfinal.model;
 
-import java.util.List;
-import org.prog3.prog3projetfinal.model.CreateCollectivityStructure;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
+import java.util.List;
+
+@Data
+@AllArgsConstructor
 public class CreateCollectivity {
     private String location;
     private List<String> members; // MemberIdentifier = String

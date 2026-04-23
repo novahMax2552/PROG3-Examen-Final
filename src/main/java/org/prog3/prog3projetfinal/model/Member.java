@@ -3,8 +3,11 @@ package org.prog3.prog3projetfinal.model;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.prog3.prog3projetfinal.model.enums.MemberOccupation;
-import org.prog3.prog3projetfinal.model.enums.Gender;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
 
 public class Member extends MemberInformation {
     private String id;

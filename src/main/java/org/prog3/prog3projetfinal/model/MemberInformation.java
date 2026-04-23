@@ -1,7 +1,12 @@
 package org.prog3.prog3projetfinal.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.prog3.prog3projetfinal.model.enums.Gender;
 import org.prog3.prog3projetfinal.model.enums.MemberOccupation;
+
+@Data
+@AllArgsConstructor
 
 public class MemberInformation {
     private String firstName;

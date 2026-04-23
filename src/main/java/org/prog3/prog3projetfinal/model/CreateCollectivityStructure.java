@@ -1,5 +1,10 @@
 package org.prog3.prog3projetfinal.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
 public class CreateCollectivityStructure {
     private String president;
     private String vicePresident;
