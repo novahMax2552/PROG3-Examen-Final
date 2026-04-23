@@ -3,7 +3,7 @@ package org.prog3.prog3projetfinal.model;
 public class AssignCollectivityIdentity {
     private Integer number;
     private String name;
-    
+
     public Integer getNumber() {
         return number;
     }
