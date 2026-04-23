@@ -3,10 +3,8 @@ package org.prog3.prog3projetfinal.service;
 import org.prog3.prog3projetfinal.Dao.CollectivityDao;
 import org.prog3.prog3projetfinal.model.AssignCollectivityIdentity;
 import org.prog3.prog3projetfinal.model.Collectivity;
-import org.prog3.prog3projetfinal.model.CreateCollectivity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -16,19 +14,6 @@ public class CollectivityService {
     public CollectivityService(CollectivityDao dao) {
         this.dao = dao;
     }
-
-    public List<Collectivity> createCollectivities(List<CreateCollectivity> requests) {
-        for (CreateCollectivity req : requests) {
-            if (!req.isFederationApproval() || req.getStructure() == null) {
-                throw new IllegalArgumentException("Federation approval missing or structure incomplete");
-            }
-            if (!dao.membersExist(req.getMembers())) {
-                throw new NoSuchElementException("One or more members not found");
-            }
-        }
-        return dao.insertCollectivities(requests);
-    }
-
     public Collectivity assignIdentity(String id, AssignCollectivityIdentity identity) {
         Collectivity c = dao.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Collectivity not found"));
