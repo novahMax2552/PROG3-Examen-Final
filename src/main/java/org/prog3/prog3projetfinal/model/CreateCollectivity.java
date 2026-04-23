@@ -1,6 +1,7 @@
 package org.prog3.prog3projetfinal.model;
 
 import java.util.List;
+import org.prog3.prog3projetfinal.model.CreateCollectivityStructure;
 
 public class CreateCollectivity {
     private String location;
