@@ -2,7 +2,10 @@ package org.prog3.prog3projetfinal.Dao;
 
 import org.prog3.prog3projetfinal.model.Collectivity;
 import org.prog3.prog3projetfinal.model.CreateCollectivity;
+import org.prog3.prog3projetfinal.model.CreateCollectivityStructure;
+import org.prog3.prog3projetfinal.model.CollectivityStructure;
 import org.prog3.prog3projetfinal.model.AssignCollectivityIdentity;
+import org.prog3.prog3projetfinal.model.Member;
 import org.prog3.prog3projetfinal.util.DBConnection;
 import org.springframework.stereotype.Repository;
 
@@ -80,6 +83,30 @@ public class CollectivityDao {
         }
     }
 
+    // ✅ Mapping CreateCollectivityStructure -> CollectivityStructure
+    private CollectivityStructure mapToCollectivityStructure(CreateCollectivityStructure input) {
+        CollectivityStructure structure = new CollectivityStructure();
+
+        Member president = new Member();
+        president.setId(input.getPresident());
+
+        Member vicePresident = new Member();
+        vicePresident.setId(input.getVicePresident());
+
+        Member treasurer = new Member();
+        treasurer.setId(input.getTreasurer());
+
+        Member secretary = new Member();
+        secretary.setId(input.getSecretary());
+
+        structure.setPresident(president);
+        structure.setVicePresident(vicePresident);
+        structure.setTreasurer(treasurer);
+        structure.setSecretary(secretary);
+
+        return structure;
+    }
+
     public List<Collectivity> insertCollectivities(List<CreateCollectivity> requests) {
         List<Collectivity> created = new ArrayList<>();
         String sql = "INSERT INTO collectivity (id, location, federation_approval) VALUES (?, ?, ?)";
@@ -95,7 +122,7 @@ public class CollectivityDao {
                 Collectivity c = new Collectivity();
                 c.setId(generatedId);
                 c.setLocation(req.getLocation());
-                c.setStructure(req.getStructure());
+                c.setStructure(mapToCollectivityStructure(req.getStructure())); // ✅ conversion
                 c.setMembers(new ArrayList<>());
                 created.add(c);
             }

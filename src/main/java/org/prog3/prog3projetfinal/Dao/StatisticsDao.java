@@ -1,8 +1,19 @@
-package org.prog3.prog3projetfinal.service;
+package org.prog3.prog3projetfinal.Dao;
 
+import org.prog3.prog3projetfinal.model.CollectivityInformation;
+import org.prog3.prog3projetfinal.model.CollectivityLocalStatistics;
+import org.prog3.prog3projetfinal.model.CollectivityOverallStatistics;
+import org.prog3.prog3projetfinal.model.MemberDescription;
+import org.prog3.prog3projetfinal.util.DBConnection;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class StatisticsDao {
@@ -42,6 +53,8 @@ public class StatisticsDao {
                 stat.setUnpaidAmount(rs.getDouble("unpaidAmount"));
                 stats.add(stat);
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return stats;
     }

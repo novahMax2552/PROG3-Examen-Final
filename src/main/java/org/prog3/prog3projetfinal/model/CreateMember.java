@@ -1,43 +1,64 @@
 package org.prog3.prog3projetfinal.model;
 
+import org.prog3.prog3projetfinal.model.enums.Gender;
+import org.prog3.prog3projetfinal.model.enums.MemberOccupation;
+
+import java.time.LocalDate;
 import java.util.List;
 
-public class CreateMember extends MemberInformation {
+public class CreateMember {
+    private String firstName;
+    private String lastName;
+    private LocalDate birthDate;
+    private String address;
+    private Gender gender;
+    private String profession;
+    private String phoneNumber;
+    private String email;
+    private MemberOccupation occupation;
+
     private String collectivityIdentifier;
-    private List<String> referees; // MemberIdentifier = String
+    private List<String> referees; // Identifiants des parrains
     private boolean registrationFeePaid;
     private boolean membershipDuesPaid;
 
-    public String getCollectivityIdentifier() {
-        return collectivityIdentifier;
-    }
+    // Getters & Setters
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
 
-    public void setCollectivityIdentifier(String collectivityIdentifier) {
-        this.collectivityIdentifier = collectivityIdentifier;
-    }
+    public String getLastName() { return lastName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
 
-    public List<String> getReferees() {
-        return referees;
-    }
+    public LocalDate getBirthDate() { return birthDate; }
+    public void setBirthDate(LocalDate birthDate) { this.birthDate = birthDate; }
 
-    public void setReferees(List<String> referees) {
-        this.referees = referees;
-    }
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
 
-    public boolean isRegistrationFeePaid() {
-        return registrationFeePaid;
-    }
+    public Gender getGender() { return gender; }
+    public void setGender(Gender gender) { this.gender = gender; }
 
-    public void setRegistrationFeePaid(boolean registrationFeePaid) {
-        this.registrationFeePaid = registrationFeePaid;
-    }
+    public String getProfession() { return profession; }
+    public void setProfession(String profession) { this.profession = profession; }
 
-    public boolean isMembershipDuesPaid() {
-        return membershipDuesPaid;
-    }
+    public String getPhoneNumber() { return phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
-    public void setMembershipDuesPaid(boolean membershipDuesPaid) {
-        this.membershipDuesPaid = membershipDuesPaid;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public MemberOccupation getOccupation() { return occupation; }
+    public void setOccupation(MemberOccupation occupation) { this.occupation = occupation; }
+
+    public String getCollectivityIdentifier() { return collectivityIdentifier; }
+    public void setCollectivityIdentifier(String collectivityIdentifier) { this.collectivityIdentifier = collectivityIdentifier; }
+
+    public List<String> getReferees() { return referees; }
+    public void setReferees(List<String> referees) { this.referees = referees; }
+
+    public boolean isRegistrationFeePaid() { return registrationFeePaid; }
+    public void setRegistrationFeePaid(boolean registrationFeePaid) { this.registrationFeePaid = registrationFeePaid; }
+
+    public boolean isMembershipDuesPaid() { return membershipDuesPaid; }
+    public void setMembershipDuesPaid(boolean membershipDuesPaid) { this.membershipDuesPaid = membershipDuesPaid; }
 }
-

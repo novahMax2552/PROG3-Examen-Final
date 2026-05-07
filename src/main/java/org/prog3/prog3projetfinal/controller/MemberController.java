@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/members")
 public class MemberController {
+
     private final MemberService service;
 
     public MemberController(MemberService service) {
@@ -23,15 +24,19 @@ public class MemberController {
             List<Member> created = service.createMembers(members);
             return ResponseEntity.status(HttpStatus.CREATED).body(created);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(null);
+            return ResponseEntity.badRequest().build();
         } catch (RuntimeException e) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Member> getMemberById(@PathVariable String id) {
+        return ResponseEntity.notFound().build();
+    }
 
+    @GetMapping
+    public ResponseEntity<List<Member>> getAllMembers() {
+        return ResponseEntity.noContent().build();
+    }
 }
